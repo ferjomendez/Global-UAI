@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kamikaze — Recomendaciones Global UAI</title>
+    <meta name="description" content="Un clásico eterno del carrete de Las Condes: pistas temáticas, hits de todas las épocas y ambiente universitario. El plan seguro cuando se quiere bailar sin ir al centro.">
+    <link rel="icon" href="../Logos Global/Logo normal.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-400: #a3a3a3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-800: #262626;
+            --transition: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 0.75rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 0 var(--gray-200);
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--black);
+        }
+        .nav-logo img {
+            height: 40px; width: 40px;
+            object-fit: contain;
+            transition: transform 0.3s var(--transition);
+        }
+        .nav-logo:hover img { transform: rotate(-5deg) scale(1.05); }
+        .nav-logo span { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 1.5px;
+            background: var(--black);
+            transition: width 0.4s var(--transition);
+        }
+        .nav-links a:hover { color: var(--black); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* ── HEADER ── */
+        .place-header {
+            padding: 9rem 2rem 3rem;
+            border-bottom: 1px solid var(--gray-200);
+            background:
+                radial-gradient(circle at 15% 60%, rgba(0,0,0,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 85% 40%, rgba(0,0,0,0.03) 0%, transparent 50%);
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .breadcrumb {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+        .breadcrumb a { color: var(--gray-400); text-decoration: none; transition: color 0.3s; }
+        .breadcrumb a:hover { color: var(--black); }
+        .place-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 0.75rem;
+        }
+        .place-location {
+            font-size: 0.95rem;
+            color: var(--gray-500);
+            margin-bottom: 2rem;
+        }
+        .place-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            align-items: flex-end;
+        }
+        .meta-block { display: flex; flex-direction: column; gap: 0.35rem; }
+        .meta-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+        }
+        .meta-value { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
+        .stars {
+            position: relative;
+            display: inline-block;
+            font-size: 1.05rem;
+            line-height: 1;
+            letter-spacing: 2px;
+        }
+        .stars-bg { color: var(--gray-300); }
+        .stars-fill {
+            position: absolute;
+            top: 0; left: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            color: var(--black);
+        }
+        .rating-row { display: flex; align-items: center; gap: 0.6rem; }
+        .rating-number { font-size: 1.05rem; font-weight: 700; }
+
+        /* ── BODY ── */
+        .place-body { padding: 4rem 2rem 5rem; }
+        .body-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+        .place-desc h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.5rem;
+        }
+        .place-desc p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--gray-600);
+            margin-bottom: 1.25rem;
+        }
+        .place-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 1.5rem; }
+        .rec-tag {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.7rem;
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        /* ── INFO CARD ── */
+        .info-card {
+            border: 1px solid var(--gray-200);
+            padding: 2rem;
+            position: sticky;
+            top: 6rem;
+            background: var(--white);
+        }
+        .info-card h3 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 1.5rem;
+        }
+        .info-item {
+            padding: 1rem 0;
+            border-top: 1px solid var(--gray-200);
+        }
+        .info-item:first-of-type { border-top: none; padding-top: 0; }
+        .info-item h4 {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 0.35rem;
+        }
+        .info-item p { font-size: 0.9rem; line-height: 1.6; color: var(--gray-800); }
+        .info-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.875rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.4s var(--transition);
+        }
+        .btn-primary { background: var(--black); color: var(--white); border: 1.5px solid var(--black); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .btn-outline { background: transparent; color: var(--black); border: 1.5px solid var(--gray-300); }
+        .btn-outline:hover { border-color: var(--black); transform: translateY(-2px); }
+
+        .back-row {
+            max-width: 1000px;
+            margin: 3rem auto 0;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--gray-200);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--black);
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            transition: gap 0.3s var(--transition);
+        }
+        .back-link:hover { gap: 0.9rem; }
+
+        /* ── FOOTER ── */
+        footer {
+            background: var(--black);
+            color: var(--gray-500);
+            padding: 3rem 2rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-content p { font-size: 0.8rem; }
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: var(--white); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            nav { padding: 0.75rem 1.5rem; }
+            .nav-links { gap: 1.25rem; }
+            .place-header { padding: 7.5rem 1.5rem 2.5rem; }
+            .place-body { padding: 3rem 1.5rem 4rem; }
+            .body-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .info-card { position: static; }
+            .place-meta { gap: 1.5rem; }
+        }
+        @media (max-width: 600px) {
+            .nav-links a { font-size: 0.75rem; }
+            .nav-links { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html" class="nav-logo">
+            <img src="../Logos Global/Logo normal.png" alt="Global UAI">
+            <span>Global UAI</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="../index.html?tab=clubs#recommendations">Recomendaciones</a></li>
+            <li><a href="../index.html#contact">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <header class="place-header">
+        <div class="container">
+            <span class="breadcrumb"><a href="../index.html">Inicio</a> / <a href="../index.html?tab=clubs#recommendations">Discotecas</a> / Kamikaze</span>
+            <h1>Kamikaze</h1>
+            <p class="place-location">Discoteca &mdash; Las Condes</p>
+            <div class="place-meta">
+                <div class="meta-block">
+                    <span class="meta-label">Rating</span>
+                    <div class="rating-row">
+                        <span class="stars">
+                            <span class="stars-bg">★★★★★</span>
+                            <span class="stars-fill" style="width: 80.0%">★★★★★</span>
+                        </span>
+                        <span class="rating-number">4.0 / 5</span>
+                    </div>
+                </div>
+                <div class="meta-block">
+                    <span class="meta-label">Rango de precio</span>
+                    <span class="meta-value">$$</span>
+                </div>
+                <div class="meta-block">
+                    <span class="meta-label">Categoría</span>
+                    <span class="meta-value">Club</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="place-body">
+        <div class="body-grid">
+            <div class="place-desc">
+                <h2>Sobre este lugar</h2>
+                <p>Kamikaze es uno de los clubes más longevos y reconocibles del barrio alto: lleva décadas siendo el plan de baile de Las Condes, con un formato de pistas y ambientes musicales distintos que van de los hits del momento al rock latino y la música de los 80s y 90s.</p>
+                <p>El público es mayoritariamente universitario y de la zona oriente, y el ambiente es más relajado y menos exclusivo que los clubes de moda: aquí se viene a bailar y pasarlo bien sin mayores pretensiones.</p>
+                <p>Está sobre Av. Las Condes, a minutos de Estoril y La Dehesa, lo que lo convierte en la opción más cómoda para quienes viven cerca del campus de Peñalolén o en el sector oriente. Ideal para cerrar una previa en el barrio.</p>
+                <div class="place-tags">
+                    <span class="rec-tag">Las Condes</span>
+                    <span class="rec-tag">Clásico</span>
+                    <span class="rec-tag">$$</span>
+                </div>
+            </div>
+            <aside class="info-card">
+                <h3>Información práctica</h3>
+                <div class="info-item">
+                    <h4>Dirección</h4>
+                    <p>Av. Las Condes 10690, Las Condes</p>
+                </div>
+                <div class="info-item">
+                    <h4>Horario</h4>
+                    <p>Jueves a sábado desde las 23:00 hrs aprox.</p>
+                </div>
+                <div class="info-item">
+                    <h4>Precio promedio</h4>
+                    <p>Entrada $8.000 – $15.000 CLP según noche</p>
+                </div>
+                <div class="info-actions">
+                    <a href="https://www.google.com/maps/search/?api=1&query=Kamikaze+Av.+Las+Condes+10690%2C+Las+Condes" target="_blank" rel="noopener" class="btn btn-primary">Ver en Google Maps</a>
+                    <a href="https://www.instagram.com/kamikaze.santiago/" target="_blank" rel="noopener" class="btn btn-outline">@kamikaze.santiago</a>
+                </div>
+            </aside>
+        </div>
+        <div class="back-row">
+            <a href="../index.html?tab=clubs#recommendations" class="back-link">&larr; Volver a recomendaciones</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Global UAI &mdash; Universidad Adolfo Ib&aacute;&ntilde;ez. Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <a href="https://www.instagram.com/global_uai/" target="_blank" rel="noopener">Instagram</a>
+                <a href="../index.html">Volver al inicio</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

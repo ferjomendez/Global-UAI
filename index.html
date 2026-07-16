@@ -547,6 +547,22 @@
         }
         .rec-content { display: none; }
         .rec-content.active { display: block; }
+        a.rec-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        .rec-card-more {
+            display: inline-block;
+            margin-top: 1.25rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            transition: color 0.3s var(--transition);
+        }
+        .rec-card:hover .rec-card-more { color: var(--black); }
 
         /* ── CONVENIOS ── */
         .convenios { background: var(--gray-100); }
@@ -975,7 +991,7 @@
             <div class="section-header reveal">
                 <span class="section-number">02 — Recomendaciones</span>
                 <h2 class="section-title">Descubre Santiago</h2>
-                <p class="section-subtitle">Los mejores lugares para comer, salir y explorar la capital chilena. Seleccionados pensando en estudiantes.</p>
+                <p class="section-subtitle">Una selección curada de los mejores lugares para comer, salir y explorar Santiago y sus alrededores. Haz clic en cualquier lugar para ver todos los detalles.</p>
             </div>
 
             <div class="rec-tabs reveal">
@@ -988,265 +1004,360 @@
             <!-- FOOD -->
             <div class="rec-content active" id="tab-food">
                 <div class="rec-grid">
-                    <div class="rec-card reveal">
-                        <div class="rec-card-category">Mercado</div>
-                        <h3>Mercado Central</h3>
-                        <div class="rec-card-location">&#9679; Calle San Pablo 967, Santiago Centro</div>
-                        <p>El mercado más famoso de Chile. Pescado fresco, paila marina, congrio frito, empanadas y centolla. Un imperdible gastronómico para probar la auténtica cocina chilena a precios accesibles.</p>
+                    <a class="rec-card reveal" href="lugares/borago.html">
+                        <div class="rec-card-category">Cocina de autor</div>
+                        <h3>Boragó</h3>
+                        <div class="rec-card-location">&#9679; Vitacura</div>
+                        <p>El restaurante más premiado de Chile y habitual en los 50 Best de Latinoamérica. Cocina endémica del chef Rodolfo Guzmán con ingredientes recolectados a lo largo de todo el país.</p>
                         <div class="rec-card-tags">
+                            <span class="rec-tag">50 Best</span>
+                            <span class="rec-tag">Endémico</span>
+                            <span class="rec-tag">$$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-1" href="lugares/la-mar.html">
+                        <div class="rec-card-category">Peruano</div>
+                        <h3>La Mar Cebichería</h3>
+                        <div class="rec-card-location">&#9679; Nueva Costanera, Vitacura</div>
+                        <p>La cebichería de Gastón Acurio en plena Nueva Costanera. Cebiches, tiraditos y causas de nivel internacional en una de las terrazas más agradables de Vitacura.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Cebiche</span>
+                            <span class="rec-tag">Gastón Acurio</span>
+                            <span class="rec-tag">$$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-2" href="lugares/casa-las-cujas.html">
+                        <div class="rec-card-category">Cocina de mar</div>
+                        <h3>Casa Las Cujas</h3>
+                        <div class="rec-card-location">&#9679; Vitacura</div>
+                        <p>Nacido en las caletas de Cachagua y hoy número 14 de Latinoamérica en los 50 Best Discovery 2025. Pescados y mariscos de pesca artesanal con espíritu de playa.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">50 Best Discovery</span>
                             <span class="rec-tag">Mariscos</span>
-                            <span class="rec-tag">Tradicional</span>
-                            <span class="rec-tag">$</span>
+                            <span class="rec-tag">$$$</span>
                         </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-1">
-                        <div class="rec-card-category">Barrio gastronómico</div>
-                        <h3>Tirso de Molina</h3>
-                        <div class="rec-card-location">&#9679; Av. La Paz, Recoleta</div>
-                        <p>Inmensa variedad de restaurantes con comida chilena, peruana, venezolana, colombiana y mexicana. Almuerzos completos desde $5.000 CLP incluyendo sopa, ensalada, plato de fondo y bebida.</p>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-3" href="lugares/naoki.html">
+                        <div class="rec-card-category">Sushi nikkei</div>
+                        <h3>Naoki</h3>
+                        <div class="rec-card-location">&#9679; Vitacura</div>
+                        <p>El sushi de referencia en Vitacura. Cortes impecables, barra nikkei y una carta japonesa-peruana que lo mantiene hace años entre los mejores de Santiago.</p>
                         <div class="rec-card-tags">
-                            <span class="rec-tag">Económico</span>
-                            <span class="rec-tag">Multicultural</span>
-                            <span class="rec-tag">$</span>
+                            <span class="rec-tag">Sushi</span>
+                            <span class="rec-tag">Nikkei</span>
+                            <span class="rec-tag">$$$</span>
                         </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-2">
-                        <div class="rec-card-category">Barrio</div>
-                        <h3>Barrio Lastarria</h3>
-                        <div class="rec-card-location">&#9679; José Victorino Lastarria, Santiago Centro</div>
-                        <p>Uno de los sectores culturales y gastronómicos más interesantes de Santiago. Cafés de especialidad, restaurantes con terraza y una atmósfera bohemia perfecta para una tarde de estudio o salida con amigos.</p>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal" href="lugares/mestizo.html">
+                        <div class="rec-card-category">Chileno contemporáneo</div>
+                        <h3>Mestizo</h3>
+                        <div class="rec-card-location">&#9679; Parque Bicentenario, Vitacura</div>
+                        <p>Cocina chilena contemporánea con la mejor terraza de Santiago: vista directa a la laguna del Parque Bicentenario. Un clásico para almuerzos largos y atardeceres.</p>
                         <div class="rec-card-tags">
-                            <span class="rec-tag">Cafés</span>
-                            <span class="rec-tag">Bohemio</span>
-                            <span class="rec-tag">$$</span>
+                            <span class="rec-tag">Terraza</span>
+                            <span class="rec-tag">Vista al parque</span>
+                            <span class="rec-tag">$$$</span>
                         </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-3">
-                        <div class="rec-card-category">Barrio</div>
-                        <h3>Barrio Italia</h3>
-                        <div class="rec-card-location">&#9679; Av. Italia, Providencia</div>
-                        <p>Zona de moda con restaurantes, cafeterías de especialidad, tiendas vintage y galerías de arte. Un barrio ideal para brunchear el fin de semana o descubrir propuestas culinarias innovadoras.</p>
-                        <div class="rec-card-tags">
-                            <span class="rec-tag">Brunch</span>
-                            <span class="rec-tag">Trendy</span>
-                            <span class="rec-tag">$$</span>
-                        </div>
-                    </div>
-                    <div class="rec-card reveal">
-                        <div class="rec-card-category">Gastronomía rápida</div>
-                        <h3>La Vega Central</h3>
-                        <div class="rec-card-location">&#9679; Nueva Rengifo 100, Recoleta</div>
-                        <p>El mercado de abastos más grande de Santiago. Frutas, verduras frescas y cocinerías con comida casera abundante y barata. Experiencia auténtica y multicultural.</p>
-                        <div class="rec-card-tags">
-                            <span class="rec-tag">Comida casera</span>
-                            <span class="rec-tag">Auténtico</span>
-                            <span class="rec-tag">$</span>
-                        </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-1">
-                        <div class="rec-card-category">Internacional</div>
-                        <h3>Patio Bellavista</h3>
-                        <div class="rec-card-location">&#9679; Pío Nono 73, Providencia</div>
-                        <p>Centro gastronómico y cultural al aire libre con una amplia variedad de restaurantes, desde sushi hasta comida peruana. Ambiente animado con tiendas de artesanía y galerías.</p>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-1" href="lugares/borde-rio.html">
+                        <div class="rec-card-category">Centro gastronómico</div>
+                        <h3>BordeRío</h3>
+                        <div class="rec-card-location">&#9679; Vitacura</div>
+                        <p>El polo gastronómico clásico de Vitacura junto al Mapocho: más de diez restaurantes y bares con terrazas, estacionamiento y ambiente seguro. Ideal cuando el grupo no se decide.</p>
                         <div class="rec-card-tags">
                             <span class="rec-tag">Variado</span>
-                            <span class="rec-tag">Al aire libre</span>
+                            <span class="rec-tag">Terrazas</span>
+                            <span class="rec-tag">$$–$$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-2" href="lugares/ambrosia-bistro.html">
+                        <div class="rec-card-category">Bistró de autor</div>
+                        <h3>Ambrosía Bistró</h3>
+                        <div class="rec-card-location">&#9679; Providencia</div>
+                        <p>El bistró de Carolina Bazán, elegida mejor chef mujer de Latinoamérica. Cocina de mercado, vinos naturales y uno de los mejores precio-calidad de la ciudad.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Chef premiada</span>
+                            <span class="rec-tag">Vinos naturales</span>
+                            <span class="rec-tag">$$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-3" href="lugares/cafe-la-candelaria.html">
+                        <div class="rec-card-category">Brunch</div>
+                        <h3>Café La Candelaria</h3>
+                        <div class="rec-card-location">&#9679; Barrio Italia, Providencia</div>
+                        <p>Uno de los brunch más queridos de Barrio Italia: café de especialidad, huevos benedictinos y terraza interior en una galería llena de tiendas de diseño.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Brunch</span>
+                            <span class="rec-tag">Café de especialidad</span>
                             <span class="rec-tag">$$</span>
                         </div>
-                    </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
                 </div>
             </div>
 
             <!-- TOURISM -->
             <div class="rec-content" id="tab-tourism">
                 <div class="rec-grid">
-                    <div class="rec-card reveal">
+                    <a class="rec-card reveal" href="lugares/cerro-san-cristobal.html">
                         <div class="rec-card-category">Mirador</div>
                         <h3>Cerro San Cristóbal</h3>
                         <div class="rec-card-location">&#9679; Parque Metropolitano, Providencia</div>
-                        <p>Uno de los pulmones verdes más grandes de Sudamérica. Sube en funicular, teleférico o caminando hasta la cima para una vista panorámica de Santiago con la cordillera de los Andes de fondo.</p>
+                        <p>El pulmón verde de Santiago. Sube en funicular, teleférico, bicicleta o corriendo hasta la cumbre para la mejor vista de la ciudad con los Andes de fondo.</p>
                         <div class="rec-card-tags">
                             <span class="rec-tag">Naturaleza</span>
-                            <span class="rec-tag">Mirador</span>
-                            <span class="rec-tag">Gratis</span>
+                            <span class="rec-tag">Vista panorámica</span>
+                            <span class="rec-tag">Clásico</span>
                         </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-1">
-                        <div class="rec-card-category">Histórico</div>
-                        <h3>Plaza de Armas</h3>
-                        <div class="rec-card-location">&#9679; Santiago Centro</div>
-                        <p>El corazón histórico de la capital. La Catedral Metropolitana, el Museo Histórico Nacional, calles peatonales y galerías comerciales. Desde aquí puedes caminar hasta el Palacio La Moneda.</p>
-                        <div class="rec-card-tags">
-                            <span class="rec-tag">Historia</span>
-                            <span class="rec-tag">Arquitectura</span>
-                            <span class="rec-tag">Gratis</span>
-                        </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-2">
-                        <div class="rec-card-category">Cultura</div>
-                        <h3>Barrio Bellavista</h3>
-                        <div class="rec-card-location">&#9679; Bellavista, Providencia / Recoleta</div>
-                        <p>El barrio más vibrante de Santiago. Arte urbano, la casa-museo de Pablo Neruda (La Chascona), gastronomía y acceso directo al Cerro San Cristóbal. Cultura de día, fiesta de noche.</p>
-                        <div class="rec-card-tags">
-                            <span class="rec-tag">Arte</span>
-                            <span class="rec-tag">Neruda</span>
-                            <span class="rec-tag">Bohemio</span>
-                        </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-3">
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-1" href="lugares/sky-costanera.html">
                         <div class="rec-card-category">Mirador</div>
-                        <h3>Cerro Santa Lucía</h3>
-                        <div class="rec-card-location">&#9679; Santa Lucía, Santiago Centro</div>
-                        <p>Cerro histórico en pleno centro con jardines, fuentes y terrazas con vista a la ciudad. Lugar de fundación de Santiago. Perfecto para una caminata entre clases.</p>
+                        <h3>Sky Costanera</h3>
+                        <div class="rec-card-location">&#9679; Providencia</div>
+                        <p>El mirador más alto de Latinoamérica, en el piso 62 de la Gran Torre Santiago: vista 360 de toda la ciudad y la cordillera. Imperdible al atardecer.</p>
                         <div class="rec-card-tags">
-                            <span class="rec-tag">Patrimonio</span>
-                            <span class="rec-tag">Mirador</span>
+                            <span class="rec-tag">Piso 62</span>
+                            <span class="rec-tag">Vista 360</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-2" href="lugares/parque-bicentenario.html">
+                        <div class="rec-card-category">Parque</div>
+                        <h3>Parque Bicentenario</h3>
+                        <div class="rec-card-location">&#9679; Vitacura</div>
+                        <p>El parque más cuidado de Santiago: lagunas con flamencos, jardines impecables y vista al Manquehue. Perfecto para picnic, deporte o una tarde de estudio al aire libre.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Picnic</span>
+                            <span class="rec-tag">Deporte</span>
                             <span class="rec-tag">Gratis</span>
                         </div>
-                    </div>
-                    <div class="rec-card reveal">
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-3" href="lugares/valle-de-casablanca.html">
+                        <div class="rec-card-category">Viñedos</div>
+                        <h3>Valle de Casablanca</h3>
+                        <div class="rec-card-location">&#9679; A 45 min de Santiago, camino a Valparaíso</div>
+                        <p>La ruta del vino blanco más famosa de Chile, camino a la costa: Casas del Bosque, Matetic, Emiliana y Veramonte. Degustaciones, almuerzos entre viñedos y paisajes de postal.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Vino</span>
+                            <span class="rec-tag">Escapada</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal" href="lugares/ski-valle-nevado.html">
+                        <div class="rec-card-category">Ski</div>
+                        <h3>Ski: Valle Nevado, El Colorado y Farellones</h3>
+                        <div class="rec-card-location">&#9679; Lo Barnechea, a 1.5 h de Santiago</div>
+                        <p>Los tres centros de ski de Santiago están a solo hora y media del campus: Valle Nevado, El Colorado y Farellones. Nieve de junio a septiembre con vista a la cordillera.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Nieve</span>
+                            <span class="rec-tag">Invierno</span>
+                            <span class="rec-tag">$$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-1" href="lugares/cajon-del-maipo.html">
                         <div class="rec-card-category">Excursión</div>
                         <h3>Cajón del Maipo</h3>
-                        <div class="rec-card-location">&#9679; A 1 hora de Santiago</div>
-                        <p>La escapada de naturaleza más popular cerca de Santiago. Trekking, termas, ríos, rafting y paisajes de montaña impresionantes. Ideal para un fin de semana aventurero.</p>
+                        <div class="rec-card-location">&#9679; San José de Maipo, a 1–2 h de Santiago</div>
+                        <p>La escapada de montaña clásica: el turquesa del Embalse El Yeso, termas, trekking y rafting a menos de dos horas de Santiago. Imperdible para los amantes del outdoor.</p>
                         <div class="rec-card-tags">
-                            <span class="rec-tag">Aventura</span>
                             <span class="rec-tag">Trekking</span>
-                            <span class="rec-tag">Naturaleza</span>
+                            <span class="rec-tag">Embalse El Yeso</span>
+                            <span class="rec-tag">Termas</span>
                         </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-1">
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-2" href="lugares/valparaiso.html">
                         <div class="rec-card-category">Excursión</div>
                         <h3>Valparaíso</h3>
-                        <div class="rec-card-location">&#9679; A 1.5 horas de Santiago</div>
-                        <p>La ciudad bohemia de Chile, Patrimonio de la Humanidad. Murales, cerros empinados con ascensores, cervezas artesanales, vida cultural y vistas al Pacífico. Imperdible.</p>
+                        <div class="rec-card-location">&#9679; A 1.5 h de Santiago</div>
+                        <p>La ciudad puerto Patrimonio de la Humanidad: cerros llenos de murales, ascensores centenarios, buena comida y vista al Pacífico. Se combina perfecto con Viña del Mar y Concón.</p>
                         <div class="rec-card-tags">
                             <span class="rec-tag">Patrimonio UNESCO</span>
                             <span class="rec-tag">Arte urbano</span>
+                            <span class="rec-tag">Costa</span>
                         </div>
-                    </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-3" href="lugares/zapallar.html">
+                        <div class="rec-card-category">Playa</div>
+                        <h3>Zapallar y Cachagua</h3>
+                        <div class="rec-card-location">&#9679; Litoral norte, a 2 h de Santiago</div>
+                        <p>La playa más elegante del litoral chileno: bahía protegida, casonas patrimoniales, el sendero costero a Cachagua y los mariscos de El Chiringuito frente al mar.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Playa</span>
+                            <span class="rec-tag">Litoral norte</span>
+                            <span class="rec-tag">$$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
                 </div>
             </div>
 
             <!-- BARS -->
             <div class="rec-content" id="tab-bars">
                 <div class="rec-grid">
-                    <div class="rec-card reveal">
+                    <a class="rec-card reveal" href="lugares/red2one.html">
+                        <div class="rec-card-category">Rooftop</div>
+                        <h3>Red2One</h3>
+                        <div class="rec-card-location">&#9679; El Golf, Las Condes</div>
+                        <p>El rooftop del hotel W en el piso 21, con vista directa a la cordillera y al skyline de El Golf. Cócteles de autor, DJ sets y el ambiente más cosmopolita de Las Condes.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Rooftop</span>
+                            <span class="rec-tag">El Golf</span>
+                            <span class="rec-tag">$$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-1" href="lugares/tramonto.html">
+                        <div class="rec-card-category">Rooftop</div>
+                        <h3>Tramonto Bar & Terrace</h3>
+                        <div class="rec-card-location">&#9679; Nueva Costanera, Vitacura</div>
+                        <p>La terraza del hotel NOI en el corazón de Vitacura: vista 360 a la cordillera, cócteles y el mejor atardecer de la zona oriente. Su nombre lo dice todo: tramonto es atardecer en italiano.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Atardecer</span>
+                            <span class="rec-tag">Vista 360</span>
+                            <span class="rec-tag">$$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-2" href="lugares/the-singular-rooftop.html">
+                        <div class="rec-card-category">Rooftop</div>
+                        <h3>The Singular Rooftop</h3>
+                        <div class="rec-card-location">&#9679; Lastarria, Santiago Centro</div>
+                        <p>La terraza del hotel más elegante de Lastarria: vista al cerro Santa Lucía y al San Cristóbal, coctelería clásica impecable y atmósfera sofisticada sin pretensión.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Lastarria</span>
+                            <span class="rec-tag">Elegante</span>
+                            <span class="rec-tag">$$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-3" href="lugares/siete-negronis.html">
+                        <div class="rec-card-category">Coctelería</div>
+                        <h3>Siete Negronis</h3>
+                        <div class="rec-card-location">&#9679; Bellavista, Providencia</div>
+                        <p>Una de las mejores barras de Latinoamérica según 50 Best Discovery. Siete versiones del negroni y coctelería de autor en la calle Mallinkrodt, la cuadra más entretenida de Bellavista.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">50 Best Bars</span>
+                            <span class="rec-tag">Negronis</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal" href="lugares/bocanariz.html">
+                        <div class="rec-card-category">Wine bar</div>
+                        <h3>Bocanáriz</h3>
+                        <div class="rec-card-location">&#9679; Lastarria, Santiago Centro</div>
+                        <p>El mejor wine bar de Chile: más de 300 etiquetas y vuelos de degustación guiados por sommeliers, en plena calle Lastarria. La forma más entretenida de aprender de vino chileno.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Vinos</span>
+                            <span class="rec-tag">Lastarria</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-1" href="lugares/chipe-libre.html">
                         <div class="rec-card-category">Pisco bar</div>
                         <h3>Chipe Libre</h3>
                         <div class="rec-card-location">&#9679; Lastarria, Santiago Centro</div>
-                        <p>En un casarón antiguo con ambiente acogedor. El mejor lugar para empezar la noche con un pisco sour bien hecho. Amplia carta de piscos y cócteles chilenos y peruanos.</p>
+                        <p>La República Independiente del Pisco: la carta de piscos chilenos y peruanos más completa de Santiago y los mejores pisco sours de la ciudad, con terraza en plena calle Lastarria.</p>
                         <div class="rec-card-tags">
                             <span class="rec-tag">Pisco</span>
-                            <span class="rec-tag">Cócteles</span>
-                            <span class="rec-tag">$$</span>
-                        </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-1">
-                        <div class="rec-card-category">Bar alternativo</div>
-                        <h3>The Clinic</h3>
-                        <div class="rec-card-location">&#9679; Monjitas 578, Lastarria</div>
-                        <p>Alojado en un hermoso edificio barroco, es THE spot en Lastarria. Cócteles creativos, cervezas y un ambiente hipster relajado. Terraza perfecta para tardes de verano.</p>
-                        <div class="rec-card-tags">
-                            <span class="rec-tag">Alternativo</span>
                             <span class="rec-tag">Terraza</span>
                             <span class="rec-tag">$$</span>
                         </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-2">
-                        <div class="rec-card-category">Cervecería</div>
-                        <h3>Kross Bar</h3>
-                        <div class="rec-card-location">&#9679; Mallinkrodt 170, Providencia</div>
-                        <p>Parada obligatoria para amantes de la cerveza artesanal. Toda la línea de cervezas Kross en presión, desde la clásica Golden hasta las ediciones limitadas. Ambiente relajado.</p>
-                        <div class="rec-card-tags">
-                            <span class="rec-tag">Craft beer</span>
-                            <span class="rec-tag">Casual</span>
-                            <span class="rec-tag">$$</span>
-                        </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-3">
-                        <div class="rec-card-category">Wine bar</div>
-                        <h3>Barrica 94</h3>
-                        <div class="rec-card-location">&#9679; Patio Bellavista, Providencia</div>
-                        <p>Todo acerca del vino chileno. Ubicado en el Patio Bellavista, es el lugar ideal para descubrir los vinos de los distintos valles de Chile en un ambiente sofisticado pero accesible.</p>
-                        <div class="rec-card-tags">
-                            <span class="rec-tag">Vinos</span>
-                            <span class="rec-tag">Bellavista</span>
-                            <span class="rec-tag">$$</span>
-                        </div>
-                    </div>
-                    <div class="rec-card reveal">
-                        <div class="rec-card-category">Rooftop</div>
-                        <h3>Luna Bar</h3>
-                        <div class="rec-card-location">&#9679; Providencia</div>
-                        <p>Rooftop casual con buena vista de la ciudad. Drinks bien preparados y ambiente relajado, sin la pretensión de los rooftops de Vitacura. Ideal para after-office o previas.</p>
-                        <div class="rec-card-tags">
-                            <span class="rec-tag">Rooftop</span>
-                            <span class="rec-tag">Vista</span>
-                            <span class="rec-tag">$$</span>
-                        </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-1">
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-2" href="lugares/bar-room-09.html">
                         <div class="rec-card-category">Speakeasy</div>
                         <h3>Bar Room 09</h3>
-                        <div class="rec-card-location">&#9679; 9° piso, Tinto Boutique Hotel, Bellavista</div>
-                        <p>Bar exclusivo estilo speakeasy en el corazón de Bellavista. Cócteles de autor y un ambiente íntimo. Para esas noches en que quieres algo más especial.</p>
+                        <div class="rec-card-location">&#9679; Bellavista, Providencia</div>
+                        <p>Speakeasy escondido en el piso 9 de un hotel boutique de Bellavista: coctelería de autor, aforo reducido y vista nocturna al barrio. Para noches que piden algo especial.</p>
                         <div class="rec-card-tags">
                             <span class="rec-tag">Speakeasy</span>
-                            <span class="rec-tag">Cócteles</span>
+                            <span class="rec-tag">Cócteles de autor</span>
                             <span class="rec-tag">$$$</span>
                         </div>
-                    </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-3" href="lugares/malva-loca.html">
+                        <div class="rec-card-category">Gastrobar</div>
+                        <h3>Malva Loca</h3>
+                        <div class="rec-card-location">&#9679; Alonso de Córdova, Vitacura</div>
+                        <p>El gastrobar de la CV Galería en Alonso de Córdova: coctelería de autor, cocina para compartir y el público más trendy de Vitacura entre galerías de arte y tiendas de diseño.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">CV Galería</span>
+                            <span class="rec-tag">Coctelería</span>
+                            <span class="rec-tag">$$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
                 </div>
             </div>
 
             <!-- CLUBS -->
             <div class="rec-content" id="tab-clubs">
                 <div class="rec-grid">
-                    <div class="rec-card reveal">
-                        <div class="rec-card-category">Electrónica</div>
-                        <h3>La Feria</h3>
-                        <div class="rec-card-location">&#9679; Providencia</div>
-                        <p>Reconocido entre los 100 mejores clubs del mundo. Electrónica, house y techno con DJs nacionales e internacionales. Entrada aprox. $10.000 CLP. La referencia de la escena electrónica santiaguina.</p>
-                        <div class="rec-card-tags">
-                            <span class="rec-tag">Top 100 mundial</span>
-                            <span class="rec-tag">Electrónica</span>
-                            <span class="rec-tag">$$</span>
-                        </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-1">
-                        <div class="rec-card-category">Alternativo</div>
-                        <h3>Blondie</h3>
-                        <div class="rec-card-location">&#9679; Alameda, Santiago Centro</div>
-                        <p>Ícono de la noche santiaguina desde 1993. Más de 30 años de historia con fiestas temáticas de new wave, rock, indie, electrónica y old school. Espacio inclusivo y diverso, clave en la vida nocturna de Santiago.</p>
-                        <div class="rec-card-tags">
-                            <span class="rec-tag">Icónico</span>
-                            <span class="rec-tag">Indie / Rock</span>
-                            <span class="rec-tag">$$</span>
-                        </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-2">
+                    <a class="rec-card reveal" href="lugares/club-amanda.html">
                         <div class="rec-card-category">Club</div>
                         <h3>Club Amanda</h3>
-                        <div class="rec-card-location">&#9679; Santiago Centro</div>
-                        <p>Uno de los clubs más mencionados de la escena actual. Programación variada que va desde reggaetón y salsa hasta electrónica. Noches temáticas con buena energía.</p>
+                        <div class="rec-card-location">&#9679; Vitacura</div>
+                        <p>El club clásico de Vitacura: fiestas temáticas, música en vivo y varias pistas en el corazón de la zona oriente. La opción de carrete top sin salir del barrio alto.</p>
                         <div class="rec-card-tags">
-                            <span class="rec-tag">Variado</span>
-                            <span class="rec-tag">Fiestas</span>
+                            <span class="rec-tag">Vitacura</span>
+                            <span class="rec-tag">Fiestas temáticas</span>
                             <span class="rec-tag">$$</span>
                         </div>
-                    </div>
-                    <div class="rec-card reveal reveal-delay-3">
-                        <div class="rec-card-category">Underground</div>
-                        <h3>El Túnel</h3>
-                        <div class="rec-card-location">&#9679; Santiago Centro</div>
-                        <p>Buena música y una pista de baile subterránea con ambiente underground auténtico. Para quienes buscan algo distinto a lo mainstream. Música variada y buen sonido.</p>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-1" href="lugares/kamikaze.html">
+                        <div class="rec-card-category">Club</div>
+                        <h3>Kamikaze</h3>
+                        <div class="rec-card-location">&#9679; Las Condes</div>
+                        <p>Un clásico eterno del carrete de Las Condes: pistas temáticas, hits de todas las épocas y ambiente universitario. El plan seguro cuando se quiere bailar sin ir al centro.</p>
                         <div class="rec-card-tags">
-                            <span class="rec-tag">Underground</span>
-                            <span class="rec-tag">Buena música</span>
+                            <span class="rec-tag">Las Condes</span>
+                            <span class="rec-tag">Clásico</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-2" href="lugares/la-feria.html">
+                        <div class="rec-card-category">Electrónica</div>
+                        <h3>La Feria</h3>
+                        <div class="rec-card-location">&#9679; Bellavista, Providencia</div>
+                        <p>El templo de la electrónica en Chile, reconocido entre los mejores clubes del mundo: house y techno con DJs internacionales en un sótano de Bellavista con sonido impecable.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Techno</span>
+                            <span class="rec-tag">House</span>
+                            <span class="rec-tag">Top mundial</span>
+                        </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
+                    <a class="rec-card reveal reveal-delay-3" href="lugares/blondie.html">
+                        <div class="rec-card-category">Alternativo</div>
+                        <h3>Blondie</h3>
+                        <div class="rec-card-location">&#9679; Santiago Centro</div>
+                        <p>Más de 30 años de historia hacen de Blondie la discoteca más icónica de Santiago: cuatro pistas con new wave, indie, pop y electrónica en un espacio diverso e inclusivo.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Icónico</span>
+                            <span class="rec-tag">Indie / New wave</span>
                             <span class="rec-tag">$</span>
                         </div>
-                    </div>
+                        <span class="rec-card-more">Ver m&aacute;s &#8594;</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1424,6 +1535,14 @@
                 });
             });
         });
+
+        // ── PRESELECT TAB FROM URL (?tab=food|tourism|bars|clubs) ──
+        const tabParam = new URLSearchParams(window.location.search).get('tab');
+        if (tabParam && document.getElementById('tab-' + tabParam)) {
+            document.querySelectorAll('.rec-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tabParam));
+            document.querySelectorAll('.rec-content').forEach(c => c.classList.remove('active'));
+            document.getElementById('tab-' + tabParam).classList.add('active');
+        }
 
         // ── REVEAL ON SCROLL ──
         const observer = new IntersectionObserver((entries) => {
