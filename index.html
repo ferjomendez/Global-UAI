@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global UAI — Vivimos la Cultura, Exploramos el Mundo</title>
+    <meta name="description" content="Organización estudiantil de la Universidad Adolfo Ibáñez dedicada a integrar estudiantes locales, de intercambio y de región.">
+    <link rel="icon" href="Logos Global/Logo normal.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-400: #a3a3a3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            --transition: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── CURSOR FOLLOWER ── */
+        .cursor-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 1.5px solid var(--black);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s var(--transition), opacity 0.3s;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+        .cursor-follower.visible { opacity: 1; }
+        .cursor-follower.hover { transform: translate(-50%, -50%) scale(2.5); border-color: var(--gray-400); }
+
+        /* ── NAVIGATION ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s var(--transition);
+            background: transparent;
+        }
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.75rem 3rem;
+            box-shadow: 0 1px 0 var(--gray-200);
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--black);
+        }
+        .nav-logo img {
+            height: 40px;
+            width: 40px;
+            object-fit: contain;
+            transition: transform 0.3s var(--transition);
+        }
+        .nav-logo:hover img { transform: rotate(-5deg) scale(1.05); }
+        .nav-logo span {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--black);
+            transition: width 0.4s var(--transition);
+        }
+        .nav-links a:hover { color: var(--black); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* ── HAMBURGER ── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+            background: none;
+            border: none;
+            padding: 5px;
+        }
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--black);
+            transition: all 0.3s var(--transition);
+            display: block;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ── MOBILE MENU ── */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--white);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s;
+        }
+        .mobile-menu.open { opacity: 1; pointer-events: all; }
+        .mobile-menu a {
+            text-decoration: none;
+            color: var(--black);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            transition: opacity 0.3s;
+        }
+        .mobile-menu a:hover { opacity: 0.5; }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(0,0,0,0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0,0,0,0.03) 0%, transparent 50%);
+        }
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0,0,0,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 70%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+        .hero-logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: heroLogoIn 1s var(--transition) 0.2s forwards;
+        }
+        .hero-logo img { width: 100%; height: 100%; object-fit: contain; }
+        @keyframes heroLogoIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-500);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s var(--transition) 0.5s forwards;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s var(--transition) 0.7s forwards;
+        }
+        .hero h1 em {
+            font-style: italic;
+            font-weight: 400;
+        }
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--gray-500);
+            max-width: 550px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.7;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s var(--transition) 1s forwards;
+        }
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s var(--transition) 1.2s forwards;
+        }
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary {
+            background: var(--black);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--black);
+            border: 1.5px solid var(--gray-300);
+        }
+        .btn-outline:hover {
+            border-color: var(--black);
+            transform: translateY(-2px);
+        }
+
+        /* ── SCROLL INDICATOR ── */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s var(--transition) 1.5s forwards;
+        }
+        .scroll-indicator span {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--gray-400);
+        }
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: var(--gray-300);
+            position: relative;
+            overflow: hidden;
+        }
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black);
+            animation: scrollDown 2s ease-in-out infinite;
+        }
+        @keyframes scrollDown {
+            0% { top: -100%; }
+            50% { top: 100%; }
+            100% { top: 100%; }
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            padding: 6rem 2rem;
+        }
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-header {
+            margin-bottom: 4rem;
+        }
+        .section-number {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--gray-500);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+
+        /* ── ABOUT ── */
+        .about { background: var(--gray-100); }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+        .stat {
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--gray-300);
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 0.25rem;
+        }
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+        .about-text p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--gray-600);
+            margin-bottom: 1.5rem;
+        }
+        .about-values {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .value-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.25rem;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            transition: all 0.4s var(--transition);
+        }
+        .value-item:hover {
+            transform: translateX(8px);
+            border-color: var(--black);
+        }
+        .value-icon {
+            font-size: 1.2rem;
+            width: 2rem;
+            flex-shrink: 0;
+            text-align: center;
+        }
+        .value-item h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .value-item p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            line-height: 1.5;
+        }
+
+        /* ── RECOMMENDATIONS ── */
+        .recommendations { background: var(--white); }
+        .rec-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        .rec-tab {
+            padding: 0.6rem 1.5rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: transparent;
+            border: 1.5px solid var(--gray-300);
+            cursor: pointer;
+            transition: all 0.3s var(--transition);
+            color: var(--gray-500);
+        }
+        .rec-tab.active, .rec-tab:hover {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+        .rec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+        .rec-card {
+            border: 1px solid var(--gray-200);
+            padding: 2rem;
+            transition: all 0.5s var(--transition);
+            position: relative;
+            overflow: hidden;
+            background: var(--white);
+        }
+        .rec-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--black);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s var(--transition);
+        }
+        .rec-card:hover::before { transform: scaleX(1); }
+        .rec-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: transparent;
+        }
+        .rec-card-category {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 0.75rem;
+        }
+        .rec-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.5rem;
+        }
+        .rec-card-location {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .rec-card p {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        .rec-card-tags {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+        }
+        .rec-tag {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 0.3rem 0.7rem;
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+        .rec-content { display: none; }
+        .rec-content.active { display: block; }
+
+        /* ── CONVENIOS ── */
+        .convenios { background: var(--gray-100); }
+        .convenios-intro {
+            font-size: 1.05rem;
+            color: var(--gray-600);
+            line-height: 1.8;
+            max-width: 700px;
+            margin-bottom: 3rem;
+        }
+        .convenios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .convenio-card {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            padding: 2rem;
+            transition: all 0.4s var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .convenio-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+        }
+        .convenio-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .convenio-card p {
+            font-size: 0.85rem;
+            color: var(--gray-500);
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        .convenio-flag {
+            font-size: 1.5rem;
+        }
+
+        /* ── MANUAL ── */
+        .manual {
+            background: var(--black);
+            color: var(--white);
+            text-align: center;
+            padding: 8rem 2rem;
+        }
+        .manual .section-number { color: var(--gray-500); }
+        .manual .section-title { color: var(--white); }
+        .manual .section-subtitle {
+            color: var(--gray-400);
+            margin: 0 auto 3rem;
+        }
+        .manual-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: left;
+        }
+        .manual-feature {
+            padding: 1.5rem;
+            border: 1px solid var(--gray-700);
+            transition: border-color 0.3s;
+        }
+        .manual-feature:hover { border-color: var(--gray-400); }
+        .manual-feature h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .manual-feature p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            line-height: 1.5;
+        }
+        .btn-white {
+            background: var(--white);
+            color: var(--black);
+        }
+        .btn-white:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.15);
+        }
+
+        /* ── CONTACT / FOOTER ── */
+        .contact {
+            background: var(--white);
+            padding: 6rem 2rem;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .contact-info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+        .contact-info p {
+            font-size: 1rem;
+            color: var(--gray-500);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem;
+            border: 1px solid var(--gray-200);
+            text-decoration: none;
+            color: var(--black);
+            transition: all 0.4s var(--transition);
+        }
+        .contact-link:hover {
+            border-color: var(--black);
+            transform: translateX(8px);
+        }
+        .contact-link-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gray-100);
+            flex-shrink: 0;
+        }
+        .contact-link-text h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.15rem;
+        }
+        .contact-link-text span {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+        .contact-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .contact-visual-inner {
+            width: 300px;
+            height: 300px;
+            border: 2px solid var(--gray-200);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .contact-visual-inner::before {
+            content: '';
+            position: absolute;
+            inset: 15px;
+            border: 1px solid var(--gray-200);
+        }
+        .contact-visual-inner img {
+            width: 60%;
+            height: 60%;
+            object-fit: contain;
+            filter: grayscale(100%);
+        }
+
+        footer {
+            background: var(--black);
+            color: var(--gray-500);
+            padding: 3rem 2rem;
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-content p {
+            font-size: 0.8rem;
+        }
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        .footer-links a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover { color: var(--white); }
+
+        /* ── MARQUEE ── */
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 1px solid var(--gray-200);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 1.25rem 0;
+            background: var(--white);
+        }
+        .marquee-inner {
+            display: inline-flex;
+            animation: marqueeScroll 30s linear infinite;
+        }
+        .marquee-item {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            padding: 0 2.5rem;
+        }
+        .marquee-item .dot {
+            display: inline-block;
+            width: 4px;
+            height: 4px;
+            background: var(--gray-300);
+            border-radius: 50%;
+            margin-left: 2.5rem;
+            vertical-align: middle;
+        }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ── REVEAL ANIMATIONS ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s var(--transition), transform 0.8s var(--transition);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            nav { padding: 1rem 1.5rem; }
+            nav.scrolled { padding: 0.75rem 1.5rem; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .mobile-menu { display: flex; }
+            .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .contact-visual { order: -1; }
+            .contact-visual-inner { width: 200px; height: 200px; }
+            .rec-grid { grid-template-columns: 1fr; }
+            section { padding: 4rem 1.5rem; }
+            .hero { padding: 5rem 1.5rem 3rem; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-logo { width: 80px; height: 80px; }
+            .about-stats { grid-template-columns: 1fr; }
+            .convenios-grid { grid-template-columns: 1fr; }
+            .manual-features { grid-template-columns: 1fr; }
+        }
+
+        /* Hide cursor follower on touch devices */
+        @media (hover: none) {
+            .cursor-follower { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cursor Follower -->
+    <div class="cursor-follower" id="cursor"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#hero" class="nav-logo">
+            <img src="Logos Global/Logo normal.png" alt="Global UAI">
+            <span>Global UAI</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#about">Nosotros</a></li>
+            <li><a href="#recommendations">Recomendaciones</a></li>
+            <li><a href="#convenios">Convenios</a></li>
+            <li><a href="#manual">Manual</a></li>
+            <li><a href="#contact">Contacto</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMobile()">Nosotros</a>
+        <a href="#recommendations" onclick="closeMobile()">Recomendaciones</a>
+        <a href="#convenios" onclick="closeMobile()">Convenios</a>
+        <a href="#manual" onclick="closeMobile()">Manual</a>
+        <a href="#contact" onclick="closeMobile()">Contacto</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-content">
+            <div class="hero-logo">
+                <img src="Logos Global/Logo normal.png" alt="Global UAI Logo">
+            </div>
+            <span class="hero-tag">Universidad Adolfo Ibáñez</span>
+            <h1>Vivimos la Cultura,<br>Exploramos <em>el Mundo</em></h1>
+            <p>Somos la organización estudiantil que integra a estudiantes locales, de intercambio y de región, generando experiencias significativas dentro y fuera del campus.</p>
+            <div class="hero-cta">
+                <a href="https://www.instagram.com/global_uai/" target="_blank" rel="noopener" class="btn btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    Síguenos
+                </a>
+                <a href="#recommendations" class="btn btn-outline">Descubre Santiago</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee">
+        <div class="marquee-inner">
+            <span class="marquee-item">Cultura <span class="dot"></span></span>
+            <span class="marquee-item">Recreación <span class="dot"></span></span>
+            <span class="marquee-item">Exploración <span class="dot"></span></span>
+            <span class="marquee-item">Intercambio <span class="dot"></span></span>
+            <span class="marquee-item">Integración <span class="dot"></span></span>
+            <span class="marquee-item">Comunidad <span class="dot"></span></span>
+            <span class="marquee-item">Experiencias <span class="dot"></span></span>
+            <span class="marquee-item">Idiomas <span class="dot"></span></span>
+            <!-- Duplicate for seamless loop -->
+            <span class="marquee-item">Cultura <span class="dot"></span></span>
+            <span class="marquee-item">Recreación <span class="dot"></span></span>
+            <span class="marquee-item">Exploración <span class="dot"></span></span>
+            <span class="marquee-item">Intercambio <span class="dot"></span></span>
+            <span class="marquee-item">Integración <span class="dot"></span></span>
+            <span class="marquee-item">Comunidad <span class="dot"></span></span>
+            <span class="marquee-item">Experiencias <span class="dot"></span></span>
+            <span class="marquee-item">Idiomas <span class="dot"></span></span>
+        </div>
+    </div>
+
+    <!-- About -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="about-grid">
+                <div class="reveal">
+                    <div class="section-header">
+                        <span class="section-number">01 — Quiénes Somos</span>
+                        <h2 class="section-title">Activamos la vida<br>universitaria</h2>
+                    </div>
+                    <div class="about-text">
+                        <p>Somos una organización estudiantil de la Universidad Adolfo Ibáñez enfocada en potenciar la vida universitaria a través de la cultura, la recreación y la exploración dentro y fuera del campus.</p>
+                        <p>Buscamos integrar a estudiantes locales, de intercambio y de región, generando experiencias significativas y entregando información útil sobre panoramas, viajes, museos y actividades culturales.</p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-number">2026</div>
+                            <div class="stat-label">Fundación</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">UAI</div>
+                            <div class="stat-label">Universidad</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-values reveal reveal-delay-2">
+                    <div class="value-item">
+                        <span class="value-icon">&#9673;</span>
+                        <div>
+                            <h4>Cultura y recreación activa</h4>
+                            <p>Promoción de actividades culturales, salidas, paseos y experiencias fuera del campus.</p>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <span class="value-icon">&#9670;</span>
+                        <div>
+                            <h4>Integración e inclusión</h4>
+                            <p>Participación de estudiantes locales, de intercambio y de región en un ambiente inclusivo.</p>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <span class="value-icon">&#9651;</span>
+                        <div>
+                            <h4>Intercambio cultural</h4>
+                            <p>Promover el aprendizaje de idiomas y el intercambio entre estudiantes de distintas procedencias.</p>
+                        </div>
+                    </div>
+                    <div class="value-item">
+                        <span class="value-icon">&#9633;</span>
+                        <div>
+                            <h4>Información y orientación</h4>
+                            <p>Recomendaciones y tips sobre panoramas, viajes, museos y actividades en Santiago y Chile.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommendations -->
+    <section class="recommendations" id="recommendations">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">02 — Recomendaciones</span>
+                <h2 class="section-title">Descubre Santiago</h2>
+                <p class="section-subtitle">Los mejores lugares para comer, salir y explorar la capital chilena. Seleccionados pensando en estudiantes.</p>
+            </div>
+
+            <div class="rec-tabs reveal">
+                <button class="rec-tab active" data-tab="food">Comida</button>
+                <button class="rec-tab" data-tab="tourism">Turismo</button>
+                <button class="rec-tab" data-tab="bars">Bares & Pubs</button>
+                <button class="rec-tab" data-tab="clubs">Discotecas</button>
+            </div>
+
+            <!-- FOOD -->
+            <div class="rec-content active" id="tab-food">
+                <div class="rec-grid">
+                    <div class="rec-card reveal">
+                        <div class="rec-card-category">Mercado</div>
+                        <h3>Mercado Central</h3>
+                        <div class="rec-card-location">&#9679; Calle San Pablo 967, Santiago Centro</div>
+                        <p>El mercado más famoso de Chile. Pescado fresco, paila marina, congrio frito, empanadas y centolla. Un imperdible gastronómico para probar la auténtica cocina chilena a precios accesibles.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Mariscos</span>
+                            <span class="rec-tag">Tradicional</span>
+                            <span class="rec-tag">$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-1">
+                        <div class="rec-card-category">Barrio gastronómico</div>
+                        <h3>Tirso de Molina</h3>
+                        <div class="rec-card-location">&#9679; Av. La Paz, Recoleta</div>
+                        <p>Inmensa variedad de restaurantes con comida chilena, peruana, venezolana, colombiana y mexicana. Almuerzos completos desde $5.000 CLP incluyendo sopa, ensalada, plato de fondo y bebida.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Económico</span>
+                            <span class="rec-tag">Multicultural</span>
+                            <span class="rec-tag">$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-2">
+                        <div class="rec-card-category">Barrio</div>
+                        <h3>Barrio Lastarria</h3>
+                        <div class="rec-card-location">&#9679; José Victorino Lastarria, Santiago Centro</div>
+                        <p>Uno de los sectores culturales y gastronómicos más interesantes de Santiago. Cafés de especialidad, restaurantes con terraza y una atmósfera bohemia perfecta para una tarde de estudio o salida con amigos.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Cafés</span>
+                            <span class="rec-tag">Bohemio</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-3">
+                        <div class="rec-card-category">Barrio</div>
+                        <h3>Barrio Italia</h3>
+                        <div class="rec-card-location">&#9679; Av. Italia, Providencia</div>
+                        <p>Zona de moda con restaurantes, cafeterías de especialidad, tiendas vintage y galerías de arte. Un barrio ideal para brunchear el fin de semana o descubrir propuestas culinarias innovadoras.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Brunch</span>
+                            <span class="rec-tag">Trendy</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal">
+                        <div class="rec-card-category">Gastronomía rápida</div>
+                        <h3>La Vega Central</h3>
+                        <div class="rec-card-location">&#9679; Nueva Rengifo 100, Recoleta</div>
+                        <p>El mercado de abastos más grande de Santiago. Frutas, verduras frescas y cocinerías con comida casera abundante y barata. Experiencia auténtica y multicultural.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Comida casera</span>
+                            <span class="rec-tag">Auténtico</span>
+                            <span class="rec-tag">$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-1">
+                        <div class="rec-card-category">Internacional</div>
+                        <h3>Patio Bellavista</h3>
+                        <div class="rec-card-location">&#9679; Pío Nono 73, Providencia</div>
+                        <p>Centro gastronómico y cultural al aire libre con una amplia variedad de restaurantes, desde sushi hasta comida peruana. Ambiente animado con tiendas de artesanía y galerías.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Variado</span>
+                            <span class="rec-tag">Al aire libre</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOURISM -->
+            <div class="rec-content" id="tab-tourism">
+                <div class="rec-grid">
+                    <div class="rec-card reveal">
+                        <div class="rec-card-category">Mirador</div>
+                        <h3>Cerro San Cristóbal</h3>
+                        <div class="rec-card-location">&#9679; Parque Metropolitano, Providencia</div>
+                        <p>Uno de los pulmones verdes más grandes de Sudamérica. Sube en funicular, teleférico o caminando hasta la cima para una vista panorámica de Santiago con la cordillera de los Andes de fondo.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Naturaleza</span>
+                            <span class="rec-tag">Mirador</span>
+                            <span class="rec-tag">Gratis</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-1">
+                        <div class="rec-card-category">Histórico</div>
+                        <h3>Plaza de Armas</h3>
+                        <div class="rec-card-location">&#9679; Santiago Centro</div>
+                        <p>El corazón histórico de la capital. La Catedral Metropolitana, el Museo Histórico Nacional, calles peatonales y galerías comerciales. Desde aquí puedes caminar hasta el Palacio La Moneda.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Historia</span>
+                            <span class="rec-tag">Arquitectura</span>
+                            <span class="rec-tag">Gratis</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-2">
+                        <div class="rec-card-category">Cultura</div>
+                        <h3>Barrio Bellavista</h3>
+                        <div class="rec-card-location">&#9679; Bellavista, Providencia / Recoleta</div>
+                        <p>El barrio más vibrante de Santiago. Arte urbano, la casa-museo de Pablo Neruda (La Chascona), gastronomía y acceso directo al Cerro San Cristóbal. Cultura de día, fiesta de noche.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Arte</span>
+                            <span class="rec-tag">Neruda</span>
+                            <span class="rec-tag">Bohemio</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-3">
+                        <div class="rec-card-category">Mirador</div>
+                        <h3>Cerro Santa Lucía</h3>
+                        <div class="rec-card-location">&#9679; Santa Lucía, Santiago Centro</div>
+                        <p>Cerro histórico en pleno centro con jardines, fuentes y terrazas con vista a la ciudad. Lugar de fundación de Santiago. Perfecto para una caminata entre clases.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Patrimonio</span>
+                            <span class="rec-tag">Mirador</span>
+                            <span class="rec-tag">Gratis</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal">
+                        <div class="rec-card-category">Excursión</div>
+                        <h3>Cajón del Maipo</h3>
+                        <div class="rec-card-location">&#9679; A 1 hora de Santiago</div>
+                        <p>La escapada de naturaleza más popular cerca de Santiago. Trekking, termas, ríos, rafting y paisajes de montaña impresionantes. Ideal para un fin de semana aventurero.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Aventura</span>
+                            <span class="rec-tag">Trekking</span>
+                            <span class="rec-tag">Naturaleza</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-1">
+                        <div class="rec-card-category">Excursión</div>
+                        <h3>Valparaíso</h3>
+                        <div class="rec-card-location">&#9679; A 1.5 horas de Santiago</div>
+                        <p>La ciudad bohemia de Chile, Patrimonio de la Humanidad. Murales, cerros empinados con ascensores, cervezas artesanales, vida cultural y vistas al Pacífico. Imperdible.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Patrimonio UNESCO</span>
+                            <span class="rec-tag">Arte urbano</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BARS -->
+            <div class="rec-content" id="tab-bars">
+                <div class="rec-grid">
+                    <div class="rec-card reveal">
+                        <div class="rec-card-category">Pisco bar</div>
+                        <h3>Chipe Libre</h3>
+                        <div class="rec-card-location">&#9679; Lastarria, Santiago Centro</div>
+                        <p>En un casarón antiguo con ambiente acogedor. El mejor lugar para empezar la noche con un pisco sour bien hecho. Amplia carta de piscos y cócteles chilenos y peruanos.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Pisco</span>
+                            <span class="rec-tag">Cócteles</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-1">
+                        <div class="rec-card-category">Bar alternativo</div>
+                        <h3>The Clinic</h3>
+                        <div class="rec-card-location">&#9679; Monjitas 578, Lastarria</div>
+                        <p>Alojado en un hermoso edificio barroco, es THE spot en Lastarria. Cócteles creativos, cervezas y un ambiente hipster relajado. Terraza perfecta para tardes de verano.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Alternativo</span>
+                            <span class="rec-tag">Terraza</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-2">
+                        <div class="rec-card-category">Cervecería</div>
+                        <h3>Kross Bar</h3>
+                        <div class="rec-card-location">&#9679; Mallinkrodt 170, Providencia</div>
+                        <p>Parada obligatoria para amantes de la cerveza artesanal. Toda la línea de cervezas Kross en presión, desde la clásica Golden hasta las ediciones limitadas. Ambiente relajado.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Craft beer</span>
+                            <span class="rec-tag">Casual</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-3">
+                        <div class="rec-card-category">Wine bar</div>
+                        <h3>Barrica 94</h3>
+                        <div class="rec-card-location">&#9679; Patio Bellavista, Providencia</div>
+                        <p>Todo acerca del vino chileno. Ubicado en el Patio Bellavista, es el lugar ideal para descubrir los vinos de los distintos valles de Chile en un ambiente sofisticado pero accesible.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Vinos</span>
+                            <span class="rec-tag">Bellavista</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal">
+                        <div class="rec-card-category">Rooftop</div>
+                        <h3>Luna Bar</h3>
+                        <div class="rec-card-location">&#9679; Providencia</div>
+                        <p>Rooftop casual con buena vista de la ciudad. Drinks bien preparados y ambiente relajado, sin la pretensión de los rooftops de Vitacura. Ideal para after-office o previas.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Rooftop</span>
+                            <span class="rec-tag">Vista</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-1">
+                        <div class="rec-card-category">Speakeasy</div>
+                        <h3>Bar Room 09</h3>
+                        <div class="rec-card-location">&#9679; 9° piso, Tinto Boutique Hotel, Bellavista</div>
+                        <p>Bar exclusivo estilo speakeasy en el corazón de Bellavista. Cócteles de autor y un ambiente íntimo. Para esas noches en que quieres algo más especial.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Speakeasy</span>
+                            <span class="rec-tag">Cócteles</span>
+                            <span class="rec-tag">$$$</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLUBS -->
+            <div class="rec-content" id="tab-clubs">
+                <div class="rec-grid">
+                    <div class="rec-card reveal">
+                        <div class="rec-card-category">Electrónica</div>
+                        <h3>La Feria</h3>
+                        <div class="rec-card-location">&#9679; Providencia</div>
+                        <p>Reconocido entre los 100 mejores clubs del mundo. Electrónica, house y techno con DJs nacionales e internacionales. Entrada aprox. $10.000 CLP. La referencia de la escena electrónica santiaguina.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Top 100 mundial</span>
+                            <span class="rec-tag">Electrónica</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-1">
+                        <div class="rec-card-category">Alternativo</div>
+                        <h3>Blondie</h3>
+                        <div class="rec-card-location">&#9679; Alameda, Santiago Centro</div>
+                        <p>Ícono de la noche santiaguina desde 1993. Más de 30 años de historia con fiestas temáticas de new wave, rock, indie, electrónica y old school. Espacio inclusivo y diverso, clave en la vida nocturna de Santiago.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Icónico</span>
+                            <span class="rec-tag">Indie / Rock</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-2">
+                        <div class="rec-card-category">Club</div>
+                        <h3>Club Amanda</h3>
+                        <div class="rec-card-location">&#9679; Santiago Centro</div>
+                        <p>Uno de los clubs más mencionados de la escena actual. Programación variada que va desde reggaetón y salsa hasta electrónica. Noches temáticas con buena energía.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Variado</span>
+                            <span class="rec-tag">Fiestas</span>
+                            <span class="rec-tag">$$</span>
+                        </div>
+                    </div>
+                    <div class="rec-card reveal reveal-delay-3">
+                        <div class="rec-card-category">Underground</div>
+                        <h3>El Túnel</h3>
+                        <div class="rec-card-location">&#9679; Santiago Centro</div>
+                        <p>Buena música y una pista de baile subterránea con ambiente underground auténtico. Para quienes buscan algo distinto a lo mainstream. Música variada y buen sonido.</p>
+                        <div class="rec-card-tags">
+                            <span class="rec-tag">Underground</span>
+                            <span class="rec-tag">Buena música</span>
+                            <span class="rec-tag">$</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Convenios -->
+    <section class="convenios" id="convenios">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">03 — Convenios</span>
+                <h2 class="section-title">Alianzas internacionales</h2>
+            </div>
+            <p class="convenios-intro reveal">La Universidad Adolfo Ibáñez cuenta con convenios de intercambio con universidades de todo el mundo. A continuación encontrarás información sobre los programas disponibles. Para más detalles, contacta a la oficina de Relaciones Internacionales.</p>
+            <div class="convenios-grid">
+                <div class="convenio-card reveal">
+                    <span class="convenio-flag">&#127466;&#127482;</span>
+                    <h3>Europa</h3>
+                    <p>Convenios con universidades en España, Francia, Alemania, Italia, Reino Unido y más. Programas semestrales y anuales disponibles.</p>
+                </div>
+                <div class="convenio-card reveal reveal-delay-1">
+                    <span class="convenio-flag">&#127482;&#127480;</span>
+                    <h3>Norteamérica</h3>
+                    <p>Alianzas con instituciones en Estados Unidos, Canadá y México. Opciones de intercambio académico y doble titulación.</p>
+                </div>
+                <div class="convenio-card reveal reveal-delay-2">
+                    <span class="convenio-flag">&#127462;&#127482;</span>
+                    <h3>Asia-Pacífico</h3>
+                    <p>Programas con universidades en Australia, Japón, Corea del Sur, China y Singapur. Experiencias únicas en culturas orientales.</p>
+                </div>
+                <div class="convenio-card reveal reveal-delay-3">
+                    <span class="convenio-flag">&#127463;&#127479;</span>
+                    <h3>Latinoamérica</h3>
+                    <p>Convenios con universidades destacadas en Brasil, Argentina, Colombia, Perú y otros países de la región.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manual del Intercambista -->
+    <section class="manual" id="manual">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">04 — Manual del Intercambista</span>
+                <h2 class="section-title">Tu guía para vivir<br>Santiago al máximo</h2>
+                <p class="section-subtitle">Todo lo que necesitas saber antes y durante tu intercambio en la UAI. Desde trámites hasta recomendaciones de vida diaria.</p>
+            </div>
+            <div class="manual-features reveal">
+                <div class="manual-feature">
+                    <h4>Trámites esenciales</h4>
+                    <p>Visa, RUT, cuenta bancaria, sistema de salud y todo el papeleo que necesitas resolver al llegar.</p>
+                </div>
+                <div class="manual-feature">
+                    <h4>Transporte</h4>
+                    <p>Metro, buses, tarjeta Bip!, apps de transporte y cómo moverte eficientemente por Santiago.</p>
+                </div>
+                <div class="manual-feature">
+                    <h4>Vida universitaria</h4>
+                    <p>Campus, horarios, sistema de evaluación, bibliotecas y servicios disponibles en la UAI.</p>
+                </div>
+                <div class="manual-feature">
+                    <h4>Tips de supervivencia</h4>
+                    <p>Chilenismos, costumbres locales, seguridad, clima y todo lo que nadie te cuenta pero deberías saber.</p>
+                </div>
+            </div>
+            <a href="#" class="btn btn-white reveal" onclick="alert('El manual estará disponible próximamente. ¡Mantente atento a nuestro Instagram!'); return false;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Descargar Manual
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <div class="section-container">
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <span class="section-number">05 — Contacto</span>
+                    <h2>Conéctate con <em>nosotros</em></h2>
+                    <p>¿Eres estudiante de intercambio o de región? ¿Quieres saber más sobre nuestras actividades? Síguenos en Instagram y sé parte de la comunidad Global UAI.</p>
+                    <div class="contact-links">
+                        <a href="https://www.instagram.com/global_uai/" target="_blank" rel="noopener" class="contact-link">
+                            <div class="contact-link-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            </div>
+                            <div class="contact-link-text">
+                                <h4>Instagram</h4>
+                                <span>@global_uai</span>
+                            </div>
+                        </a>
+                        <a href="mailto:contacto@globaluai.cl" class="contact-link">
+                            <div class="contact-link-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <div class="contact-link-text">
+                                <h4>Email</h4>
+                                <span>contacto@globaluai.cl</span>
+                            </div>
+                        </a>
+                        <a href="#" class="contact-link" onclick="return false;">
+                            <div class="contact-link-icon">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </div>
+                            <div class="contact-link-text">
+                                <h4>Universidad Adolfo Ibáñez</h4>
+                                <span>Diagonal Las Torres 2640, Peñalolén</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="contact-visual reveal reveal-delay-2">
+                    <div class="contact-visual-inner">
+                        <img src="Logos Global/Logo normal.png" alt="Global UAI">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Global UAI — Universidad Adolfo Ibáñez. Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <a href="https://www.instagram.com/global_uai/" target="_blank" rel="noopener">Instagram</a>
+                <a href="#hero">Volver arriba</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ── CURSOR FOLLOWER ──
+        const cursor = document.getElementById('cursor');
+        let cursorVisible = false;
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            if (!cursorVisible) { cursor.classList.add('visible'); cursorVisible = true; }
+        });
+        document.querySelectorAll('a, button, .rec-card, .value-item, .convenio-card, .contact-link').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // ── NAV SCROLL ──
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // ── HAMBURGER ──
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('open');
+            document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+        });
+        function closeMobile() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // ── TABS ──
+        document.querySelectorAll('.rec-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.rec-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.querySelectorAll('.rec-content').forEach(c => c.classList.remove('active'));
+                document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
+                // Re-trigger reveal for newly visible cards
+                document.querySelectorAll('#tab-' + tab.dataset.tab + ' .reveal').forEach(el => {
+                    el.classList.remove('visible');
+                    setTimeout(() => observer.observe(el), 50);
+                });
+            });
+        });
+
+        // ── REVEAL ON SCROLL ──
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ── SMOOTH SCROLL FOR ANCHOR LINKS ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
