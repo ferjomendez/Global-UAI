@@ -93,7 +93,7 @@
         }
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
             list-style: none;
         }
         .nav-links a {
@@ -651,6 +651,106 @@
             box-shadow: 0 10px 30px rgba(255,255,255,0.15);
         }
 
+        /* ── CALENDARIO ── */
+        .calendario {
+            background: var(--black);
+            color: var(--white);
+            padding: 8rem 2rem;
+            border-top: 1px solid var(--gray-800);
+        }
+        .calendario .section-number { color: var(--gray-500); }
+        .calendario .section-title { color: var(--white); }
+        .calendario .section-subtitle { color: var(--gray-400); }
+        .cal-month {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 1.25rem;
+        }
+        .cal-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+        .cal-weekday {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-500);
+            padding: 0 0 0.75rem 0.5rem;
+        }
+        .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            border-top: 1px solid var(--gray-800);
+            border-left: 1px solid var(--gray-800);
+        }
+        .cal-day {
+            min-height: 100px;
+            padding: 0.5rem;
+            border-right: 1px solid var(--gray-800);
+            border-bottom: 1px solid var(--gray-800);
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            transition: background 0.3s var(--transition);
+        }
+        .cal-day-num {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--gray-500);
+        }
+        .cal-day.is-outside .cal-day-num { color: var(--gray-800); }
+        .cal-day.has-event { background: rgba(255,255,255,0.05); }
+        .cal-day.has-event:hover { background: rgba(255,255,255,0.1); }
+        .cal-day.has-event .cal-day-num { color: var(--gray-300); }
+        .cal-day.is-outside.has-event { background: rgba(255,255,255,0.025); }
+        .cal-event {
+            font-size: 0.7rem;
+            font-weight: 600;
+            line-height: 1.3;
+            color: var(--white);
+            border-left: 2px solid var(--white);
+            padding-left: 0.45rem;
+        }
+        .cal-day.is-outside .cal-event {
+            color: var(--gray-400);
+            border-left-color: var(--gray-600);
+        }
+        .cal-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        .cal-card {
+            padding: 1.5rem;
+            border: 1px solid var(--gray-700);
+            transition: border-color 0.3s;
+        }
+        .cal-card:hover { border-color: var(--gray-400); }
+        .cal-card-date {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray-500);
+            margin-bottom: 0.6rem;
+            display: block;
+        }
+        .cal-card h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        .cal-card p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+            line-height: 1.5;
+        }
+
         /* ── CONTACT / FOOTER ── */
         .contact {
             background: var(--white);
@@ -830,6 +930,9 @@
             .contact-visual { order: -1; }
             .contact-visual-inner { width: 200px; height: 200px; }
             .rec-grid { grid-template-columns: 1fr; }
+            .cal-month, .cal-weekdays, .cal-grid { display: none; }
+            .cal-cards { grid-template-columns: 1fr; margin-top: 0; }
+            .calendario { padding: 4rem 1.5rem; }
             section { padding: 4rem 1.5rem; }
             .hero { padding: 5rem 1.5rem 3rem; }
         }
@@ -863,6 +966,7 @@
             <li><a href="#recommendations">Recomendaciones</a></li>
             <li><a href="#convenios">Convenios</a></li>
             <li><a href="#manual">Manual</a></li>
+            <li><a href="#calendario">Calendario</a></li>
             <li><a href="#contact">Contacto</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -876,6 +980,7 @@
         <a href="#recommendations" onclick="closeMobile()">Recomendaciones</a>
         <a href="#convenios" onclick="closeMobile()">Convenios</a>
         <a href="#manual" onclick="closeMobile()">Manual</a>
+        <a href="#calendario" onclick="closeMobile()">Calendario</a>
         <a href="#contact" onclick="closeMobile()">Contacto</a>
     </div>
 
@@ -1422,10 +1527,27 @@
                     <p>Chilenismos, costumbres locales, seguridad, clima y todo lo que nadie te cuenta pero deberías saber.</p>
                 </div>
             </div>
-            <a href="#" class="btn btn-white reveal" onclick="alert('El manual estará disponible próximamente. ¡Mantente atento a nuestro Instagram!'); return false;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Descargar Manual
+            <a href="https://drive.google.com/file/d/1-8j_6pkNF8ZIH8fvCTVzuhMDrdlSCvt5/view?usp=drive_link" target="_blank" rel="noopener" class="btn btn-white reveal">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                Ver Manual
             </a>
+        </div>
+    </section>
+
+    <!-- Calendario de Actividades -->
+    <section class="calendario" id="calendario">
+        <div class="section-container">
+            <div class="section-header reveal">
+                <span class="section-number">05 — Calendario de Actividades</span>
+                <h2 class="section-title">Lo que se viene<br>este <em>mes</em></h2>
+                <p class="section-subtitle">Todas las actividades de Global UAI en un solo lugar. Panoramas, fiestas, talleres y salidas para vivir el intercambio al máximo.</p>
+            </div>
+            <div class="cal-month reveal" id="calMonth"></div>
+            <div class="cal-grid-wrap reveal">
+                <div class="cal-weekdays" id="calWeekdays"></div>
+                <div class="cal-grid" id="calGrid"></div>
+            </div>
+            <div class="cal-cards reveal" id="calCards"></div>
         </div>
     </section>
 
@@ -1434,7 +1556,7 @@
         <div class="section-container">
             <div class="contact-grid">
                 <div class="contact-info reveal">
-                    <span class="section-number">05 — Contacto</span>
+                    <span class="section-number">06 — Contacto</span>
                     <h2>Conéctate con <em>nosotros</em></h2>
                     <p>¿Eres estudiante de intercambio o de región? ¿Quieres saber más sobre nuestras actividades? Síguenos en Instagram y sé parte de la comunidad Global UAI.</p>
                     <div class="contact-links">
@@ -1543,6 +1665,136 @@
             document.querySelectorAll('.rec-content').forEach(c => c.classList.remove('active'));
             document.getElementById('tab-' + tabParam).classList.add('active');
         }
+
+        // ═══════════════════════════════════════════════════════════════
+        //  CALENDARIO — EDITAR SOLO ESTE OBJETO PARA CAMBIAR DE MES
+        //
+        //  month / year      : nombre del mes y año que se muestran arriba
+        //  monthShort        : abreviatura del mes actual (tarjetas)
+        //  prevMonthShort    : abreviatura del mes anterior (tarjetas)
+        //  firstDayOffset    : día de la semana del día 1 (0=lunes … 6=domingo)
+        //  totalDays         : cuántos días tiene el mes
+        //  prevMonthDays     : cuántos días tuvo el mes anterior
+        //  events[]          : { day, month?: "prev", name, desc? }
+        //                      · month: "prev" → evento del mes anterior que
+        //                        cae en la primera semana de la grilla
+        //                      · desc es opcional (feriados, hitos sin detalle)
+        //
+        //  El calendario se re-renderiza solo: no hay que tocar el HTML.
+        // ═══════════════════════════════════════════════════════════════
+        const calendarData = {
+            month: "Agosto",
+            year: 2026,
+            monthShort: "AGO",
+            prevMonthShort: "JUL",
+            firstDayOffset: 5,   // 1 de agosto de 2026 es sábado
+            totalDays: 31,
+            prevMonthDays: 31,   // julio
+            events: [
+                { day: 29, month: "prev", name: "Santiago en un Día", desc: "Tour por los lugares más icónicos de Santiago" },
+                { day: 30, month: "prev", name: "Bienvenida UAI" },
+                { day: 1,  name: "Amazing Race en Viña del Mar", desc: "EST UAI nos invita a Viña!" },
+                { day: 3,  name: "Inicio de Clases" },
+                { day: 6,  name: "Búsqueda del Tesoro", desc: "Conoceremos el campus de la UAI con juegos y una búsqueda del tesoro" },
+                { day: 7,  name: "Global Party", desc: "Nos vamos a un bar a pasar un buen rato!" },
+                { day: 8,  name: "Trekking", desc: "Nos vamos de trekking por Santiago!" },
+                { day: 11, name: "Conoce a Global", desc: "Visita de marcas y activación para que todos conozcan Global UAI!" },
+                { day: 13, name: "Intercambio de Idiomas", desc: "Compartiremos con comida y alumnos dinámicas y juegos" },
+                { day: 15, name: "Feriado" },
+                { day: 18, name: "Global Sports", desc: "Compartiremos partidos amistosos de distintos deportes junto a otras universidades" },
+                { day: 19, name: "Semana de las Migraciones" },
+                { day: 27, name: "Feria Voluntariados" },
+                { day: 29, name: "Taller de Empanadas", desc: "Aprenderemos a hacer empanadas de cero y jugaremos juegos chilenos" }
+            ]
+        };
+
+        const CAL_WEEKDAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+
+        function renderCalendar(data) {
+            const monthEl = document.getElementById('calMonth');
+            const weekdaysEl = document.getElementById('calWeekdays');
+            const gridEl = document.getElementById('calGrid');
+            const cardsEl = document.getElementById('calCards');
+            if (!monthEl || !weekdaysEl || !gridEl || !cardsEl) return;
+
+            monthEl.textContent = data.month + ' ' + data.year;
+
+            CAL_WEEKDAYS.forEach(d => {
+                const el = document.createElement('div');
+                el.className = 'cal-weekday';
+                el.textContent = d;
+                weekdaysEl.appendChild(el);
+            });
+
+            // Eventos de un día concreto ("prev" = mes anterior). Soporta varios por día.
+            const eventsFor = (day, isPrev) => data.events.filter(e =>
+                e.day === day && (e.month === 'prev') === isPrev
+            );
+
+            // Celdas: cola del mes anterior + mes actual + relleno hasta completar semanas
+            const cells = [];
+            for (let i = data.firstDayOffset; i > 0; i--) {
+                cells.push({ day: data.prevMonthDays - i + 1, outside: true, prev: true });
+            }
+            for (let d = 1; d <= data.totalDays; d++) {
+                cells.push({ day: d, outside: false, prev: false });
+            }
+            const trailing = (7 - (cells.length % 7)) % 7;
+            for (let d = 1; d <= trailing; d++) {
+                cells.push({ day: d, outside: true, prev: false });
+            }
+
+            cells.forEach(cell => {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'cal-day' + (cell.outside ? ' is-outside' : '');
+
+                const num = document.createElement('span');
+                num.className = 'cal-day-num';
+                num.textContent = cell.day;
+                dayEl.appendChild(num);
+
+                // Solo el relleno del mes anterior puede traer eventos; el del siguiente no
+                const evts = cell.outside && !cell.prev ? [] : eventsFor(cell.day, cell.prev);
+                if (evts.length) dayEl.classList.add('has-event');
+                evts.forEach(e => {
+                    const evEl = document.createElement('div');
+                    evEl.className = 'cal-event';
+                    evEl.textContent = e.name;
+                    dayEl.appendChild(evEl);
+                });
+
+                gridEl.appendChild(dayEl);
+            });
+
+            // Tarjetas: primero los del mes anterior, luego los del mes actual
+            const sorted = [
+                ...data.events.filter(e => e.month === 'prev').sort((a, b) => a.day - b.day),
+                ...data.events.filter(e => e.month !== 'prev').sort((a, b) => a.day - b.day)
+            ];
+            sorted.forEach(e => {
+                const card = document.createElement('div');
+                card.className = 'cal-card';
+
+                const date = document.createElement('span');
+                date.className = 'cal-card-date';
+                date.textContent = e.day + ' ' + (e.month === 'prev' ? data.prevMonthShort : data.monthShort);
+                card.appendChild(date);
+
+                const title = document.createElement('h4');
+                title.textContent = e.name;
+                card.appendChild(title);
+
+                if (e.desc) {
+                    const desc = document.createElement('p');
+                    desc.textContent = e.desc;
+                    card.appendChild(desc);
+                }
+
+                cardsEl.appendChild(card);
+            });
+        }
+
+        renderCalendar(calendarData);
 
         // ── REVEAL ON SCROLL ──
         const observer = new IntersectionObserver((entries) => {
